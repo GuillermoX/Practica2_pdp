@@ -108,6 +108,11 @@ public class Medalla {
         return paisAtleta;
     }
 
+	/**
+	 * Indica si la medalla correspón a la prova indicada
+	 * @param nomProva prova que la medalla ha fet
+	 * @return retorna cert si la medalla correspón a la prova indicada
+	 */
 	public boolean esAquestaProva(String nomProva) {
 		return (this.nomProva.equalsIgnoreCase(nomProva));
 	}

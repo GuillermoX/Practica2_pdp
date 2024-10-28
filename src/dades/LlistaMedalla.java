@@ -19,6 +19,12 @@ public class LlistaMedalla {
        }
    }
 
+   public void mostrarMedalles() {
+     for (int i = 0; i < numMedalles; i++) {
+         System.out.println(llistaMedalles[i].toString());
+     }
+ }
+
    /**
     * Afegir una medalla nova
     * @param newMedalla

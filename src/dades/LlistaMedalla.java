@@ -19,11 +19,15 @@ public class LlistaMedalla {
        }
    }
 
-   public void mostrarMedalles() {
-     for (int i = 0; i < numMedalles; i++) {
-         System.out.println(llistaMedalles[i].toString());
+     public String toString() {
+          String stringSalida = "\n";
+          
+          //stringSalida = stringSalida + llistaMedalles[1].toString();
+          for (int i = 0; i<numMedalles; i++){
+               stringSalida = stringSalida + llistaMedalles[i].toString() + "\n";
+          }
+          return stringSalida;
      }
- }
 
    /**
     * Afegir una medalla nova
@@ -72,7 +76,7 @@ public class LlistaMedalla {
     */
    public Medalla primeraMedalla(String tipus, String sexe, int any) {
           boolean trobat = false; 
-          Medalla medalla;
+          Medalla medalla = null;
 
           //Per cada medalla
           int i = 0 ;
@@ -81,10 +85,7 @@ public class LlistaMedalla {
                medalla = llistaMedalles[i];
                trobat = medalla.esTipusMedalla(tipus) && medalla.esDaquestSexe(sexe) && medalla.celebratAny(any);
                i++;
-          }
-          
-          //Si no s'ha trobat cap medalla que cumpleixi les caràcterístiques s'asigna null a la medalla
-          if(!trobat) medalla = null;
+          } 
          
           //Retornem la instància de la taula (no una copia)
           return medalla;
@@ -99,7 +100,7 @@ public class LlistaMedalla {
     */
    public Medalla primeraDona(int any, String poblacio) {
           boolean trobat = false;
-          Medalla medalla;
+          Medalla medalla = null;
 
           int i = 0;
           while(!trobat && i<numMedalles){

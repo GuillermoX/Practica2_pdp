@@ -13,7 +13,7 @@ public class UsaLlistaMedalles {
 		int numLinies = Integer.parseInt(teclat.nextLine());
 		String[] dataset = llegirLiniesFitxer(numLinies);
 		LlistaMedalla llistaMedalles = procesarLinies(dataset, numLinies);
-		llistaMedalles.mostrarMedalles();		
+		System.out.printf(llistaMedalles.toString());
 	}
 
 	private static String[] llegirLiniesFitxer(int nLinies) throws FileNotFoundException {
@@ -25,10 +25,10 @@ public class UsaLlistaMedalles {
 		result = new String[nLinies];
 		Scanner f = new Scanner(new File("olympic_medals_part_UTF8.csv"));
 
-		String capcalera = f.nextLine().replace(";", " | ");
+		String capcalera = f.nextLine();
 		System.out.println("El format de les dades en cada línia és el següent\n" + capcalera);
 		for (int i = 0; i < nLinies; i++) {
-			String linea = f.nextLine().replace(";", " | ").replace("-", " | ");
+			String linea = f.nextLine();
 			result[i] = linea;
 		}
 		f.close();
@@ -38,7 +38,7 @@ public class UsaLlistaMedalles {
 
 		LlistaMedalla llistaMedalles = new LlistaMedalla(numLinies);
 	
-		for (String linea : dataset) {
+		/*for (String linea : dataset) {
 			String[] campos = linea.split("\\s+");
 	
 			if (campos.length >= 8) {
@@ -58,6 +58,34 @@ public class UsaLlistaMedalles {
 	
 				llistaMedalles.afegirDades(medalla);
 			}
+		}*/
+
+
+		for (int i = 0; i<dataset.length; i++){
+			
+			String disciplina;
+			String poblacioJocs;
+			int anyJocs;
+			String nomProva;
+			String genere;
+			String tipusMedalla;
+			String tipusParticipacio;	
+			String paisAtleta;
+			
+			String[] arrayMedalla = dataset[i].split(";"); 
+			disciplina = arrayMedalla[0];
+			String[] poblacioYAny = arrayMedalla[1].split("-");
+			poblacioJocs = poblacioYAny[0];
+			anyJocs = Integer.parseInt(poblacioYAny[1]);
+			nomProva = arrayMedalla[2];
+			genere = arrayMedalla[3];
+			tipusMedalla = arrayMedalla[4];
+			tipusParticipacio = arrayMedalla[5];
+			paisAtleta = arrayMedalla[6];
+
+			Medalla medalla = new Medalla(disciplina, poblacioJocs, anyJocs, nomProva, genere, tipusMedalla, tipusParticipacio, paisAtleta);
+
+			llistaMedalles.afegirDades(medalla);
 		}
 	
 		return llistaMedalles;

@@ -11,9 +11,28 @@ public class UsaLlistaMedalles {
 	public static void main(String[] args) throws FileNotFoundException {
 		System.out.println("Indica el número de línies a llegir del fitxer (màxim 21694)");
 		int numLinies = Integer.parseInt(teclat.nextLine());
-		String[] dataset = llegirLiniesFitxer(numLinies);
+		String[] dataset = llegirLiniesFitxer(numLinies); 
 		LlistaMedalla llistaMedalles = procesarLinies(dataset, numLinies);
+		//1
 		System.out.printf(llistaMedalles.toString());
+		/*
+		//2
+		System.out.print(procesarNumeroMedalla (llistaMedalles));
+		//3
+		procesarPrimeraMedalla(llistaMedalles);
+		//4
+		procesarPrimeraMedallaDona(llistaMedalles);
+		//5
+		String mesMedallesPais = procesarPaisMesMedalles(llistaMedalles);
+		System.out.printF(mesMedallesPais);
+		//6
+		int[] medallerDePais = procesarMedallerPais(llistaMedalles);
+        System.out.print("Medaller del pais: ");
+        System.out.print("Or: " + medallerDePais[0] + ", Plata: " + medallerDePais[1] + ", Bronze: " + medallerDePais[2]);
+		//7
+		System.out.print(procesarProvaEdicio(llistaMedalles));
+		*/
+		//8
 	}
 
 	private static String[] llegirLiniesFitxer(int nLinies) throws FileNotFoundException {
@@ -34,32 +53,11 @@ public class UsaLlistaMedalles {
 		f.close();
 		return result;
 	}
+
+	// 1
 	private static LlistaMedalla procesarLinies(String[] dataset, int numLinies) {
 
 		LlistaMedalla llistaMedalles = new LlistaMedalla(numLinies);
-	
-		/*for (String linea : dataset) {
-			String[] campos = linea.split("\\s+");
-	
-			if (campos.length >= 8) {
-				String disciplina = campos[0];
-	
-				String[] slugGame = campos[1].split("\\s+");
-				String poblacioJocs = slugGame[0];
-				int anyJocs = Integer.parseInt(slugGame[1]);
-	
-				String nomProva = campos[2];
-				String genere = campos[3];
-				String tipusMedalla = campos[4];
-				String tipusParticipacio = campos[5];
-				String paisAtleta = campos[6];
-	
-				Medalla medalla = new Medalla(disciplina, poblacioJocs, anyJocs, nomProva, genere, tipusMedalla, tipusParticipacio, paisAtleta);
-	
-				llistaMedalles.afegirDades(medalla);
-			}
-		}*/
-
 
 		for (int i = 0; i<dataset.length; i++){
 			
@@ -90,4 +88,101 @@ public class UsaLlistaMedalles {
 	
 		return llistaMedalles;
 	}
+
+	//2
+	private static int procesarNumeroMedalla(LlistaMedalla llistaMedalles) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Introdueix la poblacio: ");
+		String poblacio = scanner.nextLine();
+		System.out.print("Introdueix l'any: ");
+		int any = scanner.nextInt();
+		scanner.nextLine();
+		System.out.print("Introdueix el tipus de medalla: ");
+		String tipus = scanner.nextLine();
+		System.out.print("Introdueix el pais: ");
+		String pais = scanner.nextLine();
+		int numeroMedallas = llistaMedalles.medallesEdicio(poblacio, any, tipus, pais);
+		scanner.close();
+		return numeroMedallas;
+	}
+
+	//3
+	private static void procesarPrimeraMedalla(LlistaMedalla llistaMedalles) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Introdueix sexe de la persona: ");
+		String sexe = scanner.nextLine();
+		System.out.print("Introdueix l'any: ");
+		int any = scanner.nextInt();
+		scanner.nextLine();
+		System.out.print("Introdueix el tipus de primera medalla: ");
+		String tipus = scanner.nextLine();
+		Medalla primeraMedalla = llistaMedalles.primeraMedalla(tipus, sexe, any);
+		scanner.close();
+		if (primeraMedalla != null) {
+			System.out.println("Es trobat la primera medalla per requisits que has posat:");
+			System.out.println(primeraMedalla);
+		} else {
+			System.out.println("No es trobat la primera medalla per requisits que has posat");
+		}
+	}
+
+	//4
+
+	private static void procesarPrimeraMedallaDona(LlistaMedalla llistaMedalles) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Introdueix l'any: ");
+		int any = scanner.nextInt();
+		scanner.nextLine();
+		System.out.print("Introdueix la poblacio: ");
+		String poblacio = scanner.nextLine();
+		Medalla primeraMedalla = llistaMedalles.primeraDona(any, poblacio);
+		scanner.close();
+		if (primeraMedalla != null) {
+			System.out.println("Es trobat la primera medalla d'una dona per requisits que has posat:");
+			System.out.println(primeraMedalla);
+		} else {
+			System.out.println("No es trobat la primera medalla d'una dona per requisits que has posat");
+		}
+	}
+	
+	//5
+
+	private static String procesarPaisMesMedalles(LlistaMedalla llistaMedalles) {
+		Scanner scanner = new Scanner(System.in);
+		String medallesPais;
+		System.out.print("Introdueix el tipus de medalla: ");
+		String tipus = scanner.nextLine();
+		medallesPais = llistaMedalles.paisMesMedalles(tipus);
+		scanner.close();
+		return medallesPais;
+	}
+
+	//6
+	
+	private static int[] procesarMedallerPais(LlistaMedalla llistaMedalles) {
+        Scanner scanner = new Scanner(System.in);
+        int[] medaller = {0, 0, 0};
+        System.out.print("Introdueix el pais: ");
+        String pais = scanner.nextLine();
+        medaller = llistaMedalles.medallerPais(pais);
+        scanner.close();
+        return medaller;
+	}
+
+	//7
+
+	private static LlistaMedalla procesarProvaEdicio(LlistaMedalla llistaMedalles) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Introdueix la poblacio: ");
+		String poblacio = scanner.nextLine();
+		System.out.print("Introdueix l'any: ");
+		int any = scanner.nextInt();
+		scanner.nextLine();
+		System.out.print("Introdueix la: ");
+		String prova = scanner.nextLine();
+		scanner.close();
+		return llistaMedalles.medallesProvaIEdicio(prova, poblacio, any);
+	}
+
+	//8
 }

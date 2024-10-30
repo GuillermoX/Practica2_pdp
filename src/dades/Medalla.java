@@ -22,7 +22,7 @@ public class Medalla {
 	 * @param String inicials pais del atleta
 	 */
 	public Medalla(String disciplina, String poblacioJocs, int anyJocs, String nomProva, String genere, String medalla,
-			String tipusParticipacio, String paisAtleta) {
+		String tipusParticipacio, String paisAtleta) {
 		this.disciplina = disciplina;
 		this.poblacioJocs = poblacioJocs;
 		this.anyJocs = anyJocs;

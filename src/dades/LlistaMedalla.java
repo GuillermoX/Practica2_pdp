@@ -177,12 +177,12 @@ public class LlistaMedalla {
 
           //Per cada medalla
           for (int i=0; i<numMedalles; i++){
-              medalla = llistaMedalles[0];
+              medalla = llistaMedalles[i];
               if(medalla.esDaquestPais(pais)){
                     //En cas de ser del pais especificat
-                    if(medalla.esTipusMedalla("Gold")){ medaller[0] ++;}
-                    else if(medalla.esTipusMedalla("Silver")){ medaller[0] ++;}
-                    else{medaller[0] ++;}
+                    if(medalla.esTipusMedalla("GOLD")){ medaller[0] ++;}
+                    else if(medalla.esTipusMedalla("SILVER")){ medaller[1] ++;}
+                    else{medaller[2] ++;}
               }
           }
 

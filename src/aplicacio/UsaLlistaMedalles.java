@@ -6,22 +6,24 @@ import java.util.Scanner;
 import dades.*;
 
 public class UsaLlistaMedalles {
-	static Scanner teclat = new Scanner(System.in);
+	static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) throws FileNotFoundException {
 		System.out.println("Indica el número de línies a llegir del fitxer (màxim 21694)");
-		int numLinies = Integer.parseInt(teclat.nextLine());
+		int numLinies = Integer.parseInt(scanner.nextLine());
 		String[] dataset = llegirLiniesFitxer(numLinies); 
 		LlistaMedalla llistaMedalles = procesarLinies(dataset, numLinies);
-		mostraMenu();
-		int opcio = Integer.parseInt(teclat.nextLine());
+		int opcio = 0;
 		while (opcio != 11) {
+
+			mostraMenu();
+			opcio = Integer.parseInt(scanner.nextLine());
 			switch (opcio) {
 			case 1:
 				System.out.printf(llistaMedalles.toString());
 				break;
 			case 2:
-				System.out.print(procesarNumeroMedalla (llistaMedalles));
+				System.out.print("Número de medalles del pais: " + procesarNumeroMedalla (llistaMedalles));
 				break;
 			case 3:
 				procesarPrimeraMedalla(llistaMedalles);
@@ -39,7 +41,7 @@ public class UsaLlistaMedalles {
 				System.out.print("Or: " + medallerDePais[0] + ", Plata: " + medallerDePais[1] + ", Bronze: " + medallerDePais[2]);
 				break;
 			case 7:
-				System.out.print(procesarProvaEdicio(llistaMedalles));
+				System.out.printf(procesarProvaEdicio(llistaMedalles).toString());
 				break;
 			case 8:
 				procesarPrimeraMedallaConjunt(llistaMedalles);
@@ -50,9 +52,9 @@ public class UsaLlistaMedalles {
 			case 10:
 				break;
 			}
-			mostraMenu();
-			opcio = Integer.parseInt(teclat.nextLine());
         }
+
+		scanner.close();
 }
 
 	public static void mostraMenu() {
@@ -127,7 +129,6 @@ public class UsaLlistaMedalles {
 
 	//2
 	private static int procesarNumeroMedalla(LlistaMedalla llistaMedalles) {
-		Scanner scanner = new Scanner(System.in);
 		System.out.print("Introdueix la poblacio: ");
 		String poblacio = scanner.nextLine();
 		System.out.print("Introdueix l'any: ");
@@ -138,13 +139,11 @@ public class UsaLlistaMedalles {
 		System.out.print("Introdueix el pais: ");
 		String pais = scanner.nextLine();
 		int numeroMedallas = llistaMedalles.medallesEdicio(poblacio, any, tipus, pais);
-		scanner.close();
 		return numeroMedallas;
 	}
 
 	//3
 	private static void procesarPrimeraMedalla(LlistaMedalla llistaMedalles) {
-		Scanner scanner = new Scanner(System.in);
 		System.out.print("Introdueix sexe de la persona: ");
 		String sexe = scanner.nextLine();
 		System.out.print("Introdueix l'any: ");
@@ -153,7 +152,6 @@ public class UsaLlistaMedalles {
 		System.out.print("Introdueix el tipus de primera medalla: ");
 		String tipus = scanner.nextLine();
 		Medalla primeraMedalla = llistaMedalles.primeraMedalla(tipus, sexe, any);
-		scanner.close();
 		if (primeraMedalla != null) {
 			System.out.println("Es trobat la primera medalla per requisits que has posat:");
 			System.out.println(primeraMedalla);
@@ -165,14 +163,12 @@ public class UsaLlistaMedalles {
 	//4
 
 	private static void procesarPrimeraMedallaDona(LlistaMedalla llistaMedalles) {
-		Scanner scanner = new Scanner(System.in);
 		System.out.print("Introdueix l'any: ");
 		int any = scanner.nextInt();
 		scanner.nextLine();
 		System.out.print("Introdueix la poblacio: ");
 		String poblacio = scanner.nextLine();
 		Medalla primeraMedalla = llistaMedalles.primeraDona(any, poblacio);
-		scanner.close();
 		if (primeraMedalla != null) {
 			System.out.println("Es trobat la primera medalla d'una dona per requisits que has posat:");
 			System.out.println(primeraMedalla);
@@ -184,46 +180,38 @@ public class UsaLlistaMedalles {
 	//5
 
 	private static String procesarPaisMesMedalles(LlistaMedalla llistaMedalles) {
-		Scanner scanner = new Scanner(System.in);
 		String medallesPais;
 		System.out.print("Introdueix el tipus de medalla: ");
 		String tipus = scanner.nextLine();
 		medallesPais = llistaMedalles.paisMesMedalles(tipus);
-		scanner.close();
 		return medallesPais;
 	}
 
 	//6
 	
 	private static int[] procesarMedallerPais(LlistaMedalla llistaMedalles) {
-        Scanner scanner = new Scanner(System.in);
         int[] medaller = {0, 0, 0};
         System.out.print("Introdueix el pais: ");
         String pais = scanner.nextLine();
         medaller = llistaMedalles.medallerPais(pais);
-        scanner.close();
         return medaller;
 	}
 
 	//7
 
 	private static LlistaMedalla procesarProvaEdicio(LlistaMedalla llistaMedalles) {
-		Scanner scanner = new Scanner(System.in);
 		System.out.print("Introdueix la poblacio: ");
 		String poblacio = scanner.nextLine();
 		System.out.print("Introdueix l'any: ");
-		int any = scanner.nextInt();
-		scanner.nextLine();
+		int any = Integer.parseInt(scanner.nextLine());
 		System.out.print("Introdueix la prova: ");
 		String prova = scanner.nextLine();
-		scanner.close();
 		return llistaMedalles.medallesProvaIEdicio(prova, poblacio, any);
 	}
 
 	//8
 
 	private static void procesarPrimeraMedallaConjunt(LlistaMedalla llistaMedalles) {
-		Scanner scanner = new Scanner(System.in);
 		System.out.print("Introdueix la poblacio: ");
 		String poblacio = scanner.nextLine();
 		System.out.print("Introdueix l'any: ");
@@ -235,13 +223,9 @@ public class UsaLlistaMedalles {
 	
 		System.out.print("Introdueix sexe de la persona: ");
 		String sexe = scanner.nextLine();
-		System.out.print("Introdueix l'any: ");
-		int any = scanner.nextInt();
-		scanner.nextLine();
 		System.out.print("Introdueix el tipus de primera medalla: ");
 		String tipus = scanner.nextLine();
-		Medalla primeraMedalla = conjuntMedalles.primeraMedalla(tipus, sexe, any);
-		scanner.close();
+		Medalla primeraMedalla = conjuntMedalles.primeraMedalla(tipus, sexe, anyJocs);
 		if (primeraMedalla != null) {
 			System.out.println("Es trobat la primera medalla per requisits que has posat:");
 			System.out.println(primeraMedalla);
@@ -252,12 +236,18 @@ public class UsaLlistaMedalles {
 
 	//9
 	private static String procesarPaisMesMedallesConjunt(LlistaMedalla llistaMedalles) {
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("Introdueix el tipus de medalla: ");
+		System.out.print("Introdueix la poblacio: ");
+		String poblacio = scanner.nextLine();
+		System.out.print("Introdueix l'any: ");
+		int anyJocs = scanner.nextInt();
+		scanner.nextLine();
+		System.out.print("Introdueix la prova: ");
+		String prova = scanner.nextLine();
+		LlistaMedalla conjuntMedalles = llistaMedalles.medallesProvaIEdicio(prova, poblacio, anyJocs);	
+		System.out.print("Introdueix el tipus de primera medalla: ");
 		String tipus = scanner.nextLine();
-		String paisMesMedalles = llistaMedalles.paisMesMedalles(tipus);
-		scanner.close();
-		return paisMesMedalles;
+	
+		return conjuntMedalles.paisMesMedalles(tipus);
 	}
 
 	//10

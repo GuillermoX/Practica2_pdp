@@ -23,8 +23,13 @@ public class LlistaMedalla {
           String stringSalida = "\n";
           
           //stringSalida = stringSalida + llistaMedalles[1].toString();
-          for (int i = 0; i<numMedalles; i++){
-               stringSalida = stringSalida + llistaMedalles[i].toString() + "\n";
+          if(numMedalles > 0){
+               for (int i = 0; i<numMedalles; i++){
+                    stringSalida = stringSalida + llistaMedalles[i].toString() + "\n";
+               }
+          }
+          else{
+               stringSalida = stringSalida +"Cap medalla a la llista";
           }
           return stringSalida;
      }
@@ -228,7 +233,7 @@ public class LlistaMedalla {
                trobat = pais.equalsIgnoreCase(llista[i]);
                i++;
           }
-          
+          i --; 
           //Si no s'ha trobat es retorna el codi d'error -1
           if(!trobat) i = -1;
           return i;

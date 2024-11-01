@@ -13,26 +13,62 @@ public class UsaLlistaMedalles {
 		int numLinies = Integer.parseInt(teclat.nextLine());
 		String[] dataset = llegirLiniesFitxer(numLinies); 
 		LlistaMedalla llistaMedalles = procesarLinies(dataset, numLinies);
-		//1
-		System.out.printf(llistaMedalles.toString());
-		/*
-		//2
-		System.out.print(procesarNumeroMedalla (llistaMedalles));
-		//3
-		procesarPrimeraMedalla(llistaMedalles);
-		//4
-		procesarPrimeraMedallaDona(llistaMedalles);
-		//5
-		String mesMedallesPais = procesarPaisMesMedalles(llistaMedalles);
-		System.out.printF(mesMedallesPais);
-		//6
-		int[] medallerDePais = procesarMedallerPais(llistaMedalles);
-        System.out.print("Medaller del pais: ");
-        System.out.print("Or: " + medallerDePais[0] + ", Plata: " + medallerDePais[1] + ", Bronze: " + medallerDePais[2]);
-		//7
-		System.out.print(procesarProvaEdicio(llistaMedalles));
-		*/
-		//8
+		mostraMenu();
+		int opcio = Integer.parseInt(teclat.nextLine());
+		while (opcio != 11) {
+			switch (opcio) {
+			case 1:
+				System.out.printf(llistaMedalles.toString());
+				break;
+			case 2:
+				System.out.print(procesarNumeroMedalla (llistaMedalles));
+				break;
+			case 3:
+				procesarPrimeraMedalla(llistaMedalles);
+				break;
+			case 4:
+				procesarPrimeraMedallaDona(llistaMedalles);
+				break;
+			case 5:
+				String mesMedallesPais = procesarPaisMesMedalles(llistaMedalles);
+				System.out.printf(mesMedallesPais);
+				break;
+			case 6:
+				int[] medallerDePais = procesarMedallerPais(llistaMedalles);
+				System.out.print("Medaller del pais: ");
+				System.out.print("Or: " + medallerDePais[0] + ", Plata: " + medallerDePais[1] + ", Bronze: " + medallerDePais[2]);
+				break;
+			case 7:
+				System.out.print(procesarProvaEdicio(llistaMedalles));
+				break;
+			case 8:
+				procesarPrimeraMedallaConjunt(llistaMedalles);
+				break;
+			case 9:
+				String mesMedallesPaisConjunt = procesarPaisMesMedallesConjunt(llistaMedalles);
+				System.out.printf(mesMedallesPaisConjunt);
+			case 10:
+				break;
+			}
+			mostraMenu();
+			opcio = Integer.parseInt(teclat.nextLine());
+        }
+}
+
+	public static void mostraMenu() {
+		System.out.println("\n\nOpcions del menu:");
+		System.out.println("\n\t1. Mostrar el conjunt de dades de la llista");
+		System.out.println("\t2. Mostrar el numero de medalles aconseguides per pais");
+		System.out.println("\t3. Mostrar les dades de la primera medalla");
+		System.out.println("\t4. Mostrar les dades de la primera medalla per una dona ");
+		System.out.println("\t5. Mostrar el pais que ha aconseguit mes medalles");
+		System.out.println("\t6. Mostrar el medaller del pais");
+		System.out.println("\t7. Mostrar qui ha aconseguit les medalles");
+		System.out.println("\t8. El conjunt de medalles d'un tipus de prova i joc(Primera medalla)");
+		System.out.println("\t9. El conjunt de medalles d'un tipus de prova i joc(Mes medalles)");
+		System.out.println("\t10. Eliminar el copnjunt de medalles d’uns jocs en un tipus de prova");
+		System.out.println("\t11. Sortir");
+		System.out.print("\n\t\t\tIndica opcio:\n");
 	}
 
 	private static String[] llegirLiniesFitxer(int nLinies) throws FileNotFoundException {
@@ -178,11 +214,52 @@ public class UsaLlistaMedalles {
 		System.out.print("Introdueix l'any: ");
 		int any = scanner.nextInt();
 		scanner.nextLine();
-		System.out.print("Introdueix la: ");
+		System.out.print("Introdueix la prova: ");
 		String prova = scanner.nextLine();
 		scanner.close();
 		return llistaMedalles.medallesProvaIEdicio(prova, poblacio, any);
 	}
 
 	//8
+
+	private static void procesarPrimeraMedallaConjunt(LlistaMedalla llistaMedalles) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Introdueix la poblacio: ");
+		String poblacio = scanner.nextLine();
+		System.out.print("Introdueix l'any: ");
+		int anyJocs = scanner.nextInt();
+		scanner.nextLine();
+		System.out.print("Introdueix la prova: ");
+		String prova = scanner.nextLine();
+		LlistaMedalla conjuntMedalles = llistaMedalles.medallesProvaIEdicio(prova, poblacio, anyJocs);
+	
+		System.out.print("Introdueix sexe de la persona: ");
+		String sexe = scanner.nextLine();
+		System.out.print("Introdueix l'any: ");
+		int any = scanner.nextInt();
+		scanner.nextLine();
+		System.out.print("Introdueix el tipus de primera medalla: ");
+		String tipus = scanner.nextLine();
+		Medalla primeraMedalla = conjuntMedalles.primeraMedalla(tipus, sexe, any);
+		scanner.close();
+		if (primeraMedalla != null) {
+			System.out.println("Es trobat la primera medalla per requisits que has posat:");
+			System.out.println(primeraMedalla);
+		} else {
+			System.out.println("No es trobat la primera medalla per requisits que has posat");
+		}
+	}
+
+	//9
+	private static String procesarPaisMesMedallesConjunt(LlistaMedalla llistaMedalles) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Introdueix el tipus de medalla: ");
+		String tipus = scanner.nextLine();
+		String paisMesMedalles = llistaMedalles.paisMesMedalles(tipus);
+		scanner.close();
+		return paisMesMedalles;
+	}
+
+	//10
+
 }

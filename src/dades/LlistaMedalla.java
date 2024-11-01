@@ -217,7 +217,6 @@ public class LlistaMedalla {
    }
 
 
-
    //RUTINES AUXILIARS
 
    private static int indexPaisALlista(String pais, String[] llista, int numPaisos){

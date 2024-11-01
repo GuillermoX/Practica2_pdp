@@ -208,7 +208,7 @@ public class LlistaMedalla {
           //3 per categoria femenina
           //3 per equips mixtos
           //3 per equips oberts
-          LlistaMedalla llistaSeleccioMedalles = new LlistaMedalla(12);
+          LlistaMedalla llistaSeleccioMedalles = new LlistaMedalla(100);
           Medalla medalla;
 
           for(int i = 0; i<numMedalles; i++){
@@ -220,6 +220,60 @@ public class LlistaMedalla {
           
           return llistaSeleccioMedalles; 
    }
+
+   /**
+    * Elimina les proves d'una edicio concreta
+    * @param prova
+    * @param poblacio
+    * @param any
+    */
+   public void eliminaMedalles(String prova, String poblacio, int any){
+
+          boolean provaTrobada = false;
+          boolean fiBusquedaProves = false;
+          int indexPrimeraProva = 0;
+          int indexÚltimaProva = 0;
+          boolean arribatFinal = false;
+
+          if(numMedalles > 0){               
+               int i = 0;
+               while(!(i>= numMedalles)){
+
+                    //Es busquen els indexos del principi i final del bloc de proves que es volen eliminar
+                    Medalla medalla;
+                    i = indexPrimeraProva;
+                    provaTrobada = false;
+                    fiBusquedaProves = false;
+                    while(i < numMedalles && !fiBusquedaProves)
+                    {
+                         medalla = llistaMedalles[i]; 
+                         if(medalla.esAquestaProva(prova) && medalla.celebratEn(poblacio) && medalla.celebratAny(any)){
+                              if(!provaTrobada){
+                                   provaTrobada = true;
+                                   indexPrimeraProva = i;
+                              }
+                         }
+                         else{
+                              if(provaTrobada){
+                                   fiBusquedaProves = true;
+                                   indexÚltimaProva = i-1;
+                              }
+                         }
+                         i++;
+                    }
+
+
+                    int diferenciaIndex = indexÚltimaProva - indexPrimeraProva + 1;
+
+                    for(int j = (indexÚltimaProva + 1); j<numMedalles; j++){
+                         llistaMedalles[j-diferenciaIndex] = llistaMedalles[j];
+                    }
+               }
+
+          }
+
+
+     }
 
 
    //RUTINES AUXILIARS
@@ -252,4 +306,5 @@ public class LlistaMedalla {
 
           return indexMax;
    }
+
 }

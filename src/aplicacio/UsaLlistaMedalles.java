@@ -50,6 +50,7 @@ public class UsaLlistaMedalles {
 				String mesMedallesPaisConjunt = procesarPaisMesMedallesConjunt(llistaMedalles);
 				System.out.printf(mesMedallesPaisConjunt);
 			case 10:
+				eliminarMedalles(llistaMedalles);
 				break;
 			}
         }
@@ -251,5 +252,20 @@ public class UsaLlistaMedalles {
 	}
 
 	//10
+	private static void eliminarMedalles(LlistaMedalla llistaMedalla){
+		System.out.print("Introdueix la poblacio: ");
+		String poblacio = scanner.nextLine();
+		System.out.print("Introdueix l'any: ");
+		int anyJocs = scanner.nextInt();
+		scanner.nextLine();
+		System.out.print("Introdueix la prova: ");
+		String prova = scanner.nextLine();
+		System.out.println("Llista de proves a eliminar:");
+		System.out.printf(llistaMedalla.medallesProvaIEdicio(prova, poblacio, anyJocs).toString());
+
+		llistaMedalla.eliminaMedalles(prova, poblacio, anyJocs);
+		System.out.println("\nLlista de medalles eliminades:");
+		System.out.printf(llistaMedalla.medallesProvaIEdicio(prova, poblacio, anyJocs).toString());
+	}
 
 }
